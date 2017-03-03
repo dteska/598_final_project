@@ -35,7 +35,6 @@ function draw() {
       } else {
         bubble.textOpacity = 0;
       }
-
     } else {
       drawBubble(bubble);
     }
@@ -44,7 +43,6 @@ function draw() {
 
 function wasClickInsideBubble(bubble) {
   var bubbleRadius = bubble.diameter / 2;
-
   if (
     (mouseX > bubble.x - bubbleRadius) && (mouseX < bubble.x + bubbleRadius) &&
     (mouseY > bubble.y - bubble.offset - bubbleRadius) && (mouseY < bubble.y - bubble.offset + bubbleRadius)
@@ -65,20 +63,19 @@ function mouseClicked() {
 }
 
 function drawBubble(bubble) {
-
   if (bubble.offset > height + 400) {
     bubble.offset = 0;
   }
-
-  bubble.offset = random(-1,1);
-  fill('lightblue');
-  stroke('while');
+  bubble.offset = random(-.5,.5);
+  //  This makes the main bubble
+  fill(71, 130, 158, 0.9 * 255);
+  stroke('white');
   ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
-
+  // This makes the "air" icon on bubble
   fill('white');
   ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
-
-  fill('lightblue');
+  // This makes the rest of the bubbles.
+  fill(71, 130, 158);
   noStroke();
   ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
 }
