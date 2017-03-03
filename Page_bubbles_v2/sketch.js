@@ -10,9 +10,9 @@ function setup() {
   for (var i = 0; i < totalBubbles; i++) {
     bubbles.push({
       x: random(0, width),
-      y: window.innerHeight + 200,
+      y: random(0, height),
       diameter: random(300, 300),
-      speed: random(1, 10),
+      speed: random(1, 2),
       offset: 0,
       popped: false,
       textOpacity: 1
@@ -66,21 +66,21 @@ function mouseClicked() {
 
 function drawBubble(bubble) {
 
-  // if (bubble.offset > height + 400) {
-  //   bubble.offset = 0;
-  // }
+  if (bubble.offset > height + 400) {
+    bubble.offset = 0;
+  }
 
-  bubble.offset += bubble.speed;
+  bubble.offset = random(-1,1);
   fill('lightblue');
   stroke('while');
-  ellipse(bubble.x, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
+  ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
 
   fill('white');
-  ellipse(bubble.x + (bubble.diameter * 0.2), bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
+  ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
 
   fill('lightblue');
   noStroke();
-  ellipse(bubble.x + (bubble.diameter * 0.15), bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
+  ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
 }
 
 // This displays the secret message on the screen. Since the message will always in the middle of the

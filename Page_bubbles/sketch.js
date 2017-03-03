@@ -10,6 +10,7 @@ function setup() {
   for (var i = 0; i < totalBubbles; i++) {
     bubbles.push(new Jitter({
       popped: false,
+      
     }));
   }
 }
@@ -42,7 +43,6 @@ function draw() {
 
 function wasClickInsideBubble(bubble) {
   var bubbleRadius = bubble.diameter / 2;
-
   if (
     (mouseX > bubble.x - bubbleRadius) && (mouseX < bubble.x + bubbleRadius) &&
     (mouseY > bubble.y - bubble.offset - bubbleRadius) && (mouseY < bubble.y - bubble.offset + bubbleRadius)
@@ -62,11 +62,11 @@ function mouseClicked() {
   });
 }
 
-// function drawBubble(bubble) {
-//   if (bubble.offset > height + 400) {
-//     bubble.offset = 0;
-//   }
-// }
+function drawBubble(bubble) {
+  if (bubble.offset > height + 400) {
+    bubble.offset = 0;
+  }
+}
 
 // This makes the moving bubbles. 
 function Jitter(bubble) {
