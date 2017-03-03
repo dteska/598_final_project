@@ -33,3 +33,5 @@ function buttons(){
   text("Yes, definitely!", 400, 390);
   text ("No, not feeling it", 645, 390);
 }
+
+//NEED TO ADD FUNCTIONALITY SO THAT BUTTON SENDS USER TO CORRECT PAGE.
