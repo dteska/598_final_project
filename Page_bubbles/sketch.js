@@ -6,7 +6,7 @@ var bubbles = [];
 
 function setup() {
   createCanvas(1200, 700);
-  for (var i=0; i<50; i++) {
+  for (var i=0; i<100; i++) {
     bubbles.push(new Jitter());
   }
 }
@@ -30,8 +30,8 @@ function secretMessage() {
   text("You are a rockstar!!!", width/2, height/2);
 }
 
+// This makes the moving bubbles. 
 function Jitter() {
-  noStroke();
   this.x = random(width);
   this.y = random(height);
   this.diameter = random(300, 300);
@@ -43,7 +43,8 @@ function Jitter() {
   };
 
   this.display = function() {
-    fill (174, 249, 249, 0.2 * 255);
+    stroke(230);
+    fill (71, 130, 158, 0.5 * 255);
     ellipse(this.x, this.y, this.diameter, this.diameter);
   };
 }
