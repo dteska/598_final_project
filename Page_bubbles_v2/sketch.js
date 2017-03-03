@@ -4,6 +4,8 @@
 
 var bubbles = [];
 var totalBubbles = 100;
+var playButX = 380; 
+var playButY = 340;
 
 function setup() {
   createCanvas(1200, 700);
@@ -23,6 +25,7 @@ function setup() {
 function draw() {
   background(230); // This makes the background gray like the others. 
   secretMessage(); // This calls the secret message function. 
+  playAgainButton(); // This calls the play again button.
   bubbles.forEach(function(bubble) {
     if (bubble.popped) {
       textSize(24);
@@ -87,5 +90,15 @@ function secretMessage() {
   fill(0, 102, 153);
   textStyle(BOLD);
   textAlign(CENTER);
-  text("You are a rockstar!!!", width / 2, height / 2);
+  text("You are a rockstar!!!", width / 2, 320);
+}
+
+function playAgainButton() {
+  fill(74, 77, 81);
+  noStroke();
+  rect(playButX, playButY, 450, 70, 10);
+  fill(255);
+  textSize(20);
+  textStyle(NORMAL);
+  text("Let's play again!", playButX + 220, playButY + 40);
 }
