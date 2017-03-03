@@ -4,7 +4,8 @@
 // advanced to another state. 
 
 //TO-DO
-//Add functionality for buttons
+//Add functionality for buttons. 
+//Add in image of Octocat or change background? 
 
 var mesX = 100;
 var mesY = 300;

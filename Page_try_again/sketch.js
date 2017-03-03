@@ -2,6 +2,9 @@
 // Last edited Thursday, March 2, 2017
 // This creates the "Sad Panda" page.
 
+//TO DO: 
+//Set up button functionality. 
+
 var octoX = 100; // This is the variable for the message and octocat's x-position. 
 var octoY = 400;  // This is the varialbe for the message and octocat's y-position. 
 var bubButX = 360; // This is the variable for the bubble message's x-position. 
@@ -20,11 +23,12 @@ function setup() {
 function draw() {
   background(230); // This makes the background gray.
   message(octoX, octoY); // This calls the message function at the defined x, y position. 
-  button(bubButX, bubButY); // this calls the button function 
-  image(cat, octoX + 350, octoY - 300, 300, 300 * aspectRatio);
+  button(bubButX, bubButY); // This calls the button function at the defined x, y position. 
+  image(cat, octoX + 350, octoY - 300, 300, 300 * aspectRatio); // This calls the image at the defined
+  // x, y position. 
 }
 
-// This is the function for the text shown on the page.
+// This is the function for the message shown on the page.
 function message() {
   textSize(40);
   fill(0, 102, 153);
@@ -32,7 +36,7 @@ function message() {
   text("Sad Octocat. Click the button if you change your mind.", octoX, octoY);
 }
 
-// This makes the buttons
+// This makes the button that leads the users to bubble page. 
 function button() {
   fill(74, 77, 81);
   noStroke();
