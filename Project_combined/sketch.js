@@ -29,19 +29,34 @@ function preload() {
 
 function setup() {
   createCanvas(1200, 700);
+  background(230);
+  firstPage();
 }
 
 function draw() {
-  background(230);
-  firstPage();
-  if (page == 0) {
-   if (mouseIsPressed && mouseX > butX+250 && mouseX < butX+470 && mouseY > butY && mouseY < butY+50) {
-     
-    tryAgainPage(); 
-    }
-  } else {
-    firstPage();
-    }
+  mouseClicked; 
+}
+
+// function mousePressed () {
+//   if (page == 0) {
+//   if (mouseX > butX+250 && mouseX < butX+470 && mouseY > butY && mouseY < butY+50) {
+//     background(230);
+//     tryAgainPage(); 
+//     }
+//   } else {
+//     }
+// }  
+
+function mouseClicked() {
+  if (page === 0) {
+    if (mouseX > butX+250 && mouseX < butX+470 && mouseY > butY && mouseY < butY+50) {
+    background(230);
+    tryAgainPage();
+  }
+  else {
+    print()
+  }
+}
 }
 
 /////////////////////////////// START OF FIRST PAGE CODE ///////////////////////////////
