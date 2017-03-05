@@ -23,6 +23,11 @@ function setup() {
 
 function draw() {
   background(230); // This makes the background gray like the others. 
+  test ();
+}
+
+
+function test(){
   secretMessage(); // This calls the secret message function. 
   playAgainButton(); // This calls the play again button.
   bubbles.forEach(function(bubble) { // This makes the bubbles individual entities. 
