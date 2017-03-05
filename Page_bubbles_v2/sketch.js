@@ -75,9 +75,9 @@ function mouseClicked() {
 // This function draws the bubbles. The bubbles jitter a little bit to simulate a floating movement in 
 // a contained space.
 function drawBubble(bubble) {
-  if (bubble.offset > height + 400) {
-    bubble.offset = 0;
-  }
+  // if (bubble.offset > height + 400) {
+  //   bubble.offset = 0;
+  // }
   bubble.offset = random(-.5, .5);
   //  This makes the main bubble
   fill(71, 130, 158, 0.9 * 255);

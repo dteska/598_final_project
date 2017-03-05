@@ -49,27 +49,26 @@ function setup() {
 }
 
 function draw() {
-  bubbles.forEach(function(bubble){
-})
-
+  bubbles.forEach(function(bubble){})
 }
+
 
 function mouseClicked() {
-}
-
-
-function routeUser() {
   // if user clicks right button on 1st page, takes to sad page
   if (page === "firstPage" && mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
-      draw(background(230),tryAgainPage()); //draw up the tryAgainPage...maybe need a way to remove prior page's content?
+      draw(background(230),tryAgainPage()),page = "tryAgainPage"; //draw up the tryAgainPage...maybe need a way to remove prior page's content?
       }
   // if user clicks left button on 1st page, takes to bubble page
   else if (page === "firstPage" && mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
-      draw(background(230),bubblesPage());
+      draw(background(230),bubblesPage()),page = "bubblesPage";
     }
   // if user clicks "try again" button, returns to bubble page
-  //else (page === "")
-  }  
+  else if (page === "tryAgainPage" && mouseX > 0) {
+    draw(background(230),bubblesPage()),page = "bubblesPage";
+  }
+  else if (page === "bubblesPage" && mouseX > 0)  {
+    draw(background(230),firstPage(),page = "firstPage")
+  }}  
 
 /////////////////////////////// START OF FIRST PAGE CODE ///////////////////////////////
 
@@ -106,7 +105,7 @@ function buttons() {
 
 // This is the function for the entire try again page. 
 function tryAgainPage() {
-  var page = "tryAgainPage"
+  //var page = "tryAgainPage"
   image(cat, octoX + 350, octoY - 300, 300, 300 * aspectRatio); // This calls the image at the defined
   tryAgainMessage(octoX, octoY); // This calls the message function at the defined x, y position. 
   tryAgainButton(bubButX, bubButY); // This calls the button function at the defined x, y position. 
@@ -242,8 +241,7 @@ function secretMessage() {
   textSize(40);
   fill(0, 102, 153);
   textStyle(BOLD);
-  textAlign(CENTER);
-  text("You are a rockstar!!!", width / 2, 320);
+  text("You are a rockstar!!!", 410, 320);
 }
 
 // This function creates the play again button that users can click to start over.
@@ -254,6 +252,6 @@ function playAgainButton() {
   fill(255);
   textSize(20);
   textStyle(NORMAL);
-  text("Click to play again!", playButX + 220, playButY + 40);
+  text("Click to play again!", playButX + 135, playButY + 40);
 }
 /////////////////////////////// END OF BUBBLE PAGE CODE ///////////////////////////////
