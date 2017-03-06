@@ -1,5 +1,5 @@
 // Created by Danielle Teska and Lulu Xiao
-// Last edited Friday, March 3, 2017
+// Last edited Sunday, March 6, 2017
 // This is the final project for our HCDE 598 class. The user choose whether they want to see a message or 
 // answer a question. If the user chooses yes, the user is directed to a page where they can pop bubbles to see
 // the message. If the user chooses no, the user is directed to a differnt page. They are allowed
@@ -7,6 +7,7 @@
 
 //TO-DO
 // Add in functionality for the buttons. 
+// Make the bubble page work.
 // Make everything prettier...
 
 var page = "firstPage"
@@ -15,7 +16,7 @@ var mesX = 100;
 var mesY = 300;
 var butX = 360;
 var butY = 360;
-// These variables pertain to Try Again page.
+// These variables pertain to the Try Again page.
 var octoX = 100; // This is the variable for the message and octocat's x-position. 
 var octoY = 400; // This is the varialbe for the message and octocat's y-position. 
 var bubButX = 360; // This is the variable for the bubble message's x-position. 
@@ -33,8 +34,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1200, 700);
-  background(230);
+  createCanvas(1200, 700); // This sets the canvas size.
+  background(230); // This makes the background gray.
   for (var i = 0; i < totalBubbles; i++) { // Initiates setup. This loops makes many bubbles. The total number is set as a variable above. 
     bubbles.push({ // This whole section identifies the "start" state of the bubbles. 
       x: random(0, width), // This says the bubble will appear at some random x-position within the canvas. 
@@ -45,14 +46,14 @@ function setup() {
       textOpacity: 1 // The text opacity starts at 1. 
     });
   }
-  firstPage();
+  firstPage(); // This calls the first page. May need to remove. 
 }
 
 function draw() {
-  bubbles.forEach(function(bubble){})
+  bubbles.forEach(function(bubble){}) // This calls the bubbles object function. 
 }
 
-
+// This function defines what the buttons will do.
 function mouseClicked() {
   // if user clicks right button on 1st page, takes to sad page
   if (page === "firstPage" && mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
@@ -62,11 +63,12 @@ function mouseClicked() {
   else if (page === "firstPage" && mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
       draw(background(230),bubblesPage()),page = "bubblesPage";
     }
-  // if user clicks "try again" button, returns to bubble page
-  else if (page === "tryAgainPage" && mouseX > 0) {
+  // if user clicks "try again" button, returns to bubble page 
+  else if (page === "tryAgainPage" && mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
     draw(background(230),bubblesPage()),page = "bubblesPage";
   }
-  else if (page === "bubblesPage" && mouseX > 0)  {
+  else if (page === "bubblesPage" && mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0)  {
+    
     draw(background(230),firstPage(),page = "firstPage")
   }}  
 
