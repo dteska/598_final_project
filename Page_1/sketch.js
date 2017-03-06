@@ -39,6 +39,6 @@ function buttons() {
   fill(255);
   textSize(20);
   textStyle(NORMAL);
-  text("Yes, definitely!", butX + 40, butY + 30);
+  text("Yes, definitely", butX + 40, butY + 30);
   text("No, not feeling it", butX + 285, butY + 30);
 }
