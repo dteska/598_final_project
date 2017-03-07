@@ -21,7 +21,7 @@ var aspectRatio = 201 / 264
 var bubbles = [];
 var totalBubbles = 100;
 var playButX = 380;
-var playButY = 340;
+var playButY = 600;
 
 function preload() {
   cat = loadImage("octocat_sad.png"); // This loads in the image of the Octocat. Used the png file because 
@@ -220,7 +220,7 @@ function secretMessage() {
   fill(0, 102, 153);
   textStyle(BOLD);
   textAlign(CENTER);
-  text("You are a rockstar!!!", width / 2, 320);
+  text("You are a rockstar!!!", width / 2, height/2);
 }
 
 // This function creates the play again button that users can click to start over.
