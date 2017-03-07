@@ -1,14 +1,9 @@
 // Created by Danielle Teska and Lulu Xiao
-// Last edited Sunday, March 6, 2017
-// This is the final project for our HCDE 598 class. The user choose whether they want to see a message or 
-// answer a question. If the user chooses yes, the user is directed to a page where they can pop bubbles to see
+// Last edited Tuesday, March 7, 2017
+// This is the final project for our HCDE 598 class. The user chooses whether they want to see a message 
+// by popping bubbles. If the user chooses yes, the user is directed to a page where they can pop bubbles to see
 // the message. If the user chooses no, the user is directed to a differnt page. They are allowed
 // to change their mind if they want, however. 
-
-//TO-DO
-// Add in functionality for the buttons. 
-// Make the bubble page work.
-// Make everything prettier...
 
 var page = 0
   // These variables pertain to the first page. 
@@ -34,50 +29,37 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1200, 700); // This sets the canvas size.
+  createCanvas(1200, 700); // This sets the canvas size to 1200 in width and 700 in height. 
   background(230); // This makes the background gray.
-  for (var i = 0; i < totalBubbles; i++) { // Initiates setup. This loops makes many bubbles. The total number is set as a variable above. 
-    bubbles.push({ // This whole section identifies the "start" state of the bubbles. 
-      x: random(0, width), // This says the bubble will appear at some random x-position within the canvas. 
-      y: random(0, height), // Same as above, but for y-position. 
-      diameter: random(100, 300), // The bubble diameters will vary between 100 to 300.
-      offset: 0, // The offset starts at zero. 
-      popped: false, // All bubbles start as not popped. 
-      textOpacity: 1 // The text opacity starts at 1. 
-    });
-  }
+  bubbleSetup();
 }
 
 function draw() {
-  if (page === 0) {
-    background(230);
-    firstPage();
-  } else if (page === 1) {
-    background(230);
-    tryAgainPage();
-  } else if (page === 2) {
-    background(230);
-    // bubbles.forEach(function(bubble) {}) // This calls the bubbles object function. 
-    bubblesPage();
+  background(230); // This refreshes the background to gray.
+  if (page === 0) { // This loads the first page with the question.
+    firstPage(); // This calls the first page function with the string and buttons. 
+  } else if (page === 1) { // This loads the second page.
+    tryAgainPage(); // This calls the try again page with string and buttons. 
+  } else if (page === 2) { // This loads the third page with bubbles. 
+    bubblesPage(); // This calls the bubbles page function. 
   }
 }
 
-// This function defines what the buttons will do.
-function mousePressed() {
-  console.log("WORK");
+// This function defines what the buttons on the different pages will do when the user clicks the button with his/her mouse. 
+function mouseClicked() {
   // if user clicks right button on 1st page, takes to sad page
   if (page === 0) {
     if (mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
       page = page + 1; //draw up the tryAgainPage
-      console.log("PLEASE WORK");
     } else if (mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
+      bubbleSetup();
       page = page + 2;
-      console.log("PLEASE FRIGGIN WORK");
     }
   }
   // if user clicks "Alright, let's pop some bubbles" button, returns to bubble page 
   else if (page === 1) {
     if (mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
+      bubbleSetup();
       page = page + 1;
     }
   } else if (page === 2) {
@@ -86,7 +68,6 @@ function mousePressed() {
     }
   }
 }
-
 /////////////////////////////// START OF FIRST PAGE CODE ///////////////////////////////
 
 // This function creates the entire first page. 
@@ -117,7 +98,6 @@ function buttons() {
   text("Yes, definitely!", butX + 40, butY + 30);
   text("No, not feeling it", butX + 285, butY + 30);
 }
-
 /////////////////////////////// END OF FIRST PAGE CODE ///////////////////////////////
 
 /////////////////////////////// START OF TRY AGAIN PAGE CODE ///////////////////////////////
@@ -149,13 +129,25 @@ function tryAgainButton() {
   textAlign(LEFT);
   text("Alright, let's pop some bubbles!", bubButX + 85, bubButY + 40);
 }
-
 /////////////////////////////// END OF TRY AGAIN PAGE CODE ///////////////////////////////
 
 //////////////////////// START OF BUBBLE PAGE CODE /////////////////////////////
 
-// This function calls all of the individual functions for the bubbles page.
-
+// This function setups the bubbles. 
+function bubbleSetup() {
+ for (var i = 0; i < totalBubbles; i++) { // Initiates setup. This loops makes many bubbles. The total number is set as a variable above. 
+    bubbles.push({ // This whole section identifies the "start" state of the bubbles. 
+      x: random(0, width), // This says the bubble will appear at some random x-position within the canvas. 
+      y: random(0, height), // Same as above, but for y-position. 
+      diameter: random(200, 300), // The bubble diameters will vary between 100 to 300.
+      offset: 0, // The offset starts at zero. 
+      popped: false, // All bubbles start as not popped. 
+      textOpacity: 1 // The text opacity starts at 1. 
+    });
+  } 
+}
+  
+// This function calls the bubbles, message, and button for the page. 
 function bubblesPage() {
   secretMessage();
   playAgainButton();
@@ -163,7 +155,6 @@ function bubblesPage() {
     // drawBubble(bubble);
     // wasClickInsideBubble(bubble);
     if (bubble.popped) { // This defines what happens if the bubble is popped. 
-      console.log("bubble was popped")
       textSize(24); // This says the "**pop**" text will be size 24. 
       textAlign(CENTER); // This aligns the "**pop**" text in the center. 
       fill('rgba(255,525,255,' + bubble.textOpacity + ')');
@@ -196,7 +187,7 @@ function wasClickInsideBubble(bubble) {
 }
 
 // This function "pops" the bubbles when the user clicks inside the bubble.
-function mouseClicked() {
+function mousePressed() {
   bubbles.forEach(function(bubble) {
     if (wasClickInsideBubble(bubble)) {
       bubble.popped = true;
@@ -208,9 +199,6 @@ function mouseClicked() {
 // This function draws the bubbles. The bubbles jitter a little bit to simulate a floating movement in 
 // a contained space.
 function drawBubble(bubble) {
-  // if (bubble.offset > height + 400) {
-  //   bubble.offset = 0;
-  // }
   bubble.offset = random(-.5, .5);
   //  This makes the main bubble
   fill(71, 130, 158, 0.9 * 255);
