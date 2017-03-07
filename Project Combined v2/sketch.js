@@ -70,8 +70,7 @@ function mousePressed() {
     if (mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
       page = page + 1; //draw up the tryAgainPage
       console.log("PLEASE WORK");
-    } 
-    else if (mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
+    } else if (mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
       page = page + 2;
       console.log("PLEASE FRIGGIN WORK");
     }
@@ -79,14 +78,11 @@ function mousePressed() {
   // if user clicks "Alright, let's pop some bubbles" button, returns to bubble page 
   else if (page === 1) {
     if (mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
-      page = page + 2;
-      drawBubble(bubble);
-      wasClickInsideBubble(bubble);
-      mouseClicked();
+      page = page + 1;
     }
   } else if (page === 2) {
     if (mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0) {
-      page;
+      page = 2 - page;
     }
   }
 }
@@ -104,6 +100,7 @@ function message() {
   textSize(40);
   fill(0, 102, 153);
   textStyle(BOLD);
+  textAlign(LEFT);
   text("Do you want to pop some bubbles to see a message?", mesX, mesY);
 }
 
@@ -116,6 +113,7 @@ function buttons() {
   fill(255);
   textSize(20);
   textStyle(NORMAL);
+  textAlign(LEFT);
   text("Yes, definitely!", butX + 40, butY + 30);
   text("No, not feeling it", butX + 285, butY + 30);
 }
@@ -136,6 +134,7 @@ function tryAgainMessage() {
   textSize(40);
   fill(0, 102, 153);
   textStyle(BOLD);
+  textAlign(LEFT);
   text("Sad Octocat. Click the button if you change your mind.", octoX, octoY);
 }
 
@@ -147,6 +146,7 @@ function tryAgainButton() {
   fill(255);
   textSize(20);
   textStyle(NORMAL);
+  textAlign(LEFT);
   text("Alright, let's pop some bubbles!", bubButX + 85, bubButY + 40);
 }
 
@@ -178,7 +178,7 @@ function bubblesPage() {
       drawBubble(bubble); // See above. 
     }
 
-    });
+  });
 }
 
 // This function defines if a click is inside a button and, if so, what value to return and what action
