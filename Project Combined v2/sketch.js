@@ -24,7 +24,7 @@ var bubButY = 420; // This is the variable for the bubble message's y-position.
 var aspectRatio = 201 / 264
   // These variables pertain to the Bubbles page. 
 var bubbles = [];
-var totalBubbles = 10;
+var totalBubbles = 100;
 var playButX = 380;
 var playButY = 340;
 
@@ -46,39 +46,48 @@ function setup() {
       textOpacity: 1 // The text opacity starts at 1. 
     });
   }
-  firstPage(); // This calls the first page. May need to remove. 
 }
 
 function draw() {
-  bubbles.forEach(function(bubble) {}) // This calls the bubbles object function. 
-  if (page == 0) {
+  if (page === 0) {
+    background(230);
     firstPage();
-  } else if (page == 1) {
-    tryAgainPAge();
-  } else {
+  } else if (page === 1) {
+    background(230);
+    tryAgainPage();
+  } else if (page === 2) {
+    background(230);
+    // bubbles.forEach(function(bubble) {}) // This calls the bubbles object function. 
     bubblesPage();
   }
 }
 
 // This function defines what the buttons will do.
-function mouseClicked() {
+function mousePressed() {
+  console.log("WORK");
   // if user clicks right button on 1st page, takes to sad page
-  if (page === 0 && mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
-    background(230);
-    page === 1; //draw up the tryAgainPage...maybe need a way to remove prior page's content?
-  }
-  // if user clicks left button on 1st page, takes to bubble page
-  else if (page === 0 && mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
-    background(230);
-    page === 2;
+  if (page === 0) {
+    if (mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
+      page = page + 1; //draw up the tryAgainPage
+      console.log("PLEASE WORK");
+    } 
+    else if (mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
+      page = page + 2;
+      console.log("PLEASE FRIGGIN WORK");
+    }
   }
   // if user clicks "Alright, let's pop some bubbles" button, returns to bubble page 
-  else if (page === 1 && mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
-    background(230);
-    page === 2;
-  } else if (page === 2 && mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0) {
-    background(230);
-    page === 0;
+  else if (page === 1) {
+    if (mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
+      page = page + 2;
+      drawBubble(bubble);
+      wasClickInsideBubble(bubble);
+      mouseClicked();
+    }
+  } else if (page === 2) {
+    if (mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0) {
+      page;
+    }
   }
 }
 
@@ -117,7 +126,6 @@ function buttons() {
 
 // This is the function for the entire try again page. 
 function tryAgainPage() {
-  //var page = "tryAgainPage"
   image(cat, octoX + 350, octoY - 300, 300, 300 * aspectRatio); // This calls the image at the defined
   tryAgainMessage(octoX, octoY); // This calls the message function at the defined x, y position. 
   tryAgainButton(bubButX, bubButY); // This calls the button function at the defined x, y position. 
@@ -152,10 +160,8 @@ function bubblesPage() {
   secretMessage();
   playAgainButton();
   bubbles.forEach(function(bubble) { // This makes the bubbles individual entities.
-    bubble.offset = random(-1, 1);
-    drawBubble(bubble);
-
-    wasClickInsideBubble(bubble);
+    // drawBubble(bubble);
+    // wasClickInsideBubble(bubble);
     if (bubble.popped) { // This defines what happens if the bubble is popped. 
       console.log("bubble was popped")
       textSize(24); // This says the "**pop**" text will be size 24. 
@@ -169,49 +175,43 @@ function bubblesPage() {
         bubble.textOpacity = 0; // See above.
       }
     } else { // See above. 
-      //drawBubble(bubble); // See above. 
+      drawBubble(bubble); // See above. 
     }
 
-  });
-
-
-  // mouseClicked();
-
+    });
 }
 
 // This function defines if a click is inside a button and, if so, what value to return and what action
 // to take. 
-function wasClickInsideBubble() {
+function wasClickInsideBubble(bubble) {
+  var bubbleRadius = bubble.diameter / 2;
+  if (
+    (mouseX > bubble.x - bubbleRadius) && (mouseX < bubble.x + bubbleRadius) &&
+    (mouseY > bubble.y - bubble.offset - bubbleRadius) && (mouseY < bubble.y - bubble.offset + bubbleRadius)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// This function "pops" the bubbles when the user clicks inside the bubble.
+function mouseClicked() {
   bubbles.forEach(function(bubble) {
-    var bubbleRadius = bubble.diameter / 2;
-    if (
-      (mouseX > bubble.x - bubbleRadius) &&
-      (mouseX < bubble.x + bubbleRadius) &&
-      (mouseY > bubble.y - bubble.offset - bubbleRadius) &&
-      (mouseY < bubble.y - bubble.offset + bubbleRadius) &&
-      mouseClicked()
-    ) {
-      console.log("truePop!")
-      return true;
-    } else {
-      return false;
+    if (wasClickInsideBubble(bubble)) {
+      bubble.popped = true;
+      console.log('Popped!');
     }
   });
 }
 
-
-
-// This function "pops" the bubbles when the user clicks inside the bubble.
-// function mouseClicked() {
-//   bubbles.forEach(function(bubble) {
-//     if (wasClickInsideBubble(bubble)) {
-//       bubble.popped = true;
-//     }
-//   });
-// }
-
-
+// This function draws the bubbles. The bubbles jitter a little bit to simulate a floating movement in 
+// a contained space.
 function drawBubble(bubble) {
+  // if (bubble.offset > height + 400) {
+  //   bubble.offset = 0;
+  // }
+  bubble.offset = random(-.5, .5);
   //  This makes the main bubble
   fill(71, 130, 158, 0.9 * 255);
   stroke('white');
@@ -225,35 +225,14 @@ function drawBubble(bubble) {
   ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
 }
 
-
-// This function draws the bubbles. The bubbles jitter a little bit to simulate a floating movement in 
-// a contained space.
-//function drawBubble() {
-//bubbles.forEach(function(bubble) {
-//console.log(bubble)
-//bubble.offset = random(-.5, .5);
-//console.log("jitterPooooZ")
-//  This makes the main bubble
-//fill(71, 130, 158, 0.9 * 255);
-//stroke('white');
-//ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
-// This makes the "air" icon on bubble
-//fill('white');
-//ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
-// This makes the rest of the bubbles.
-//fill(71, 130, 158);
-//noStroke();
-//ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
-// });
-//}
-
 // This displays the secret message on the screen. Since the message will always in the middle of the
 // page, I made the position half the width and height of the defined canvas. 
 function secretMessage() {
   textSize(40);
   fill(0, 102, 153);
   textStyle(BOLD);
-  text("You are a rockstar!!!", 410, 320);
+  textAlign(CENTER);
+  text("You are a rockstar!!!", width / 2, 320);
 }
 
 // This function creates the play again button that users can click to start over.
@@ -264,6 +243,6 @@ function playAgainButton() {
   fill(255);
   textSize(20);
   textStyle(NORMAL);
-  text("Click to play again!", playButX + 135, playButY + 40);
+  text("Click to play again!", playButX + 220, playButY + 40);
 }
 /////////////////////////////// END OF BUBBLE PAGE CODE ///////////////////////////////
