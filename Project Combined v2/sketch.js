@@ -10,7 +10,7 @@
 // Make the bubble page work.
 // Make everything prettier...
 
-var page = "firstPage"
+var page = 0
   // These variables pertain to the first page. 
 var mesX = 100;
 var mesY = 300;
@@ -50,27 +50,37 @@ function setup() {
 }
 
 function draw() {
-  bubbles.forEach(function(bubble){}) // This calls the bubbles object function. 
+  bubbles.forEach(function(bubble) {}) // This calls the bubbles object function. 
+  if (page == 0) {
+    firstPage();
+  } else if (page == 1) {
+    tryAgainPAge();
+  } else {
+    bubblesPage();
+  }
 }
 
 // This function defines what the buttons will do.
 function mouseClicked() {
   // if user clicks right button on 1st page, takes to sad page
-  if (page === "firstPage" && mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
-      draw(background(230),tryAgainPage()),page = "tryAgainPage"; //draw up the tryAgainPage...maybe need a way to remove prior page's content?
-      }
-  // if user clicks left button on 1st page, takes to bubble page
-  else if (page === "firstPage" && mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
-      draw(background(230),bubblesPage()),page = "bubblesPage";
-    }
-  // if user clicks "try again" button, returns to bubble page 
-  else if (page === "tryAgainPage" && mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
-    draw(background(230),bubblesPage()),page = "bubblesPage";
+  if (page === 0 && mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
+    background(230);
+    page === 1; //draw up the tryAgainPage...maybe need a way to remove prior page's content?
   }
-  else if (page === "bubblesPage" && mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0)  {
-    
-    draw(background(230),firstPage(),page = "firstPage")
-  }}  
+  // if user clicks left button on 1st page, takes to bubble page
+  else if (page === 0 && mouseX > butX && mouseX < butX + 220 && mouseY > butY && mouseY < butY + 50) {
+    background(230);
+    page === 2;
+  }
+  // if user clicks "Alright, let's pop some bubbles" button, returns to bubble page 
+  else if (page === 1 && mouseX > bubButX && mouseX < bubButX + 450 && mouseY > bubButY && mouseY < bubButY + 70) {
+    background(230);
+    page === 2;
+  } else if (page === 2 && mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0) {
+    background(230);
+    page === 0;
+  }
+}
 
 /////////////////////////////// START OF FIRST PAGE CODE ///////////////////////////////
 
@@ -144,7 +154,7 @@ function bubblesPage() {
   bubbles.forEach(function(bubble) { // This makes the bubbles individual entities.
     bubble.offset = random(-1, 1);
     drawBubble(bubble);
-    
+
     wasClickInsideBubble(bubble);
     if (bubble.popped) { // This defines what happens if the bubble is popped. 
       console.log("bubble was popped")
@@ -161,10 +171,10 @@ function bubblesPage() {
     } else { // See above. 
       //drawBubble(bubble); // See above. 
     }
-  
+
   });
-  
-  
+
+
   // mouseClicked();
 
 }
@@ -173,20 +183,20 @@ function bubblesPage() {
 // to take. 
 function wasClickInsideBubble() {
   bubbles.forEach(function(bubble) {
-  var bubbleRadius = bubble.diameter / 2;
-  if (
-    (mouseX > bubble.x - bubbleRadius) && 
-    (mouseX < bubble.x + bubbleRadius) && 
-    (mouseY > bubble.y - bubble.offset - bubbleRadius) && 
-    (mouseY < bubble.y - bubble.offset + bubbleRadius) &&
-    mouseClicked()
-  ) {
-    console.log("truePop!")
-    return true;
-  } else {
-    return false;
-  }
-});
+    var bubbleRadius = bubble.diameter / 2;
+    if (
+      (mouseX > bubble.x - bubbleRadius) &&
+      (mouseX < bubble.x + bubbleRadius) &&
+      (mouseY > bubble.y - bubble.offset - bubbleRadius) &&
+      (mouseY < bubble.y - bubble.offset + bubbleRadius) &&
+      mouseClicked()
+    ) {
+      console.log("truePop!")
+      return true;
+    } else {
+      return false;
+    }
+  });
 }
 
 
@@ -202,40 +212,40 @@ function wasClickInsideBubble() {
 
 
 function drawBubble(bubble) {
-//  This makes the main bubble
-    fill(71, 130, 158, 0.9 * 255);
-    stroke('white');
-    ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
+  //  This makes the main bubble
+  fill(71, 130, 158, 0.9 * 255);
+  stroke('white');
+  ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
   // This makes the "air" icon on bubble
-    fill('white');
-    ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
+  fill('white');
+  ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
   // This makes the rest of the bubbles.
-    fill(71, 130, 158);
-    noStroke();
-    ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
+  fill(71, 130, 158);
+  noStroke();
+  ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
 }
 
 
 // This function draws the bubbles. The bubbles jitter a little bit to simulate a floating movement in 
 // a contained space.
 //function drawBubble() {
-  //bubbles.forEach(function(bubble) {
-    //console.log(bubble)
-    //bubble.offset = random(-.5, .5);
-    //console.log("jitterPooooZ")
-  //  This makes the main bubble
-  //fill(71, 130, 158, 0.9 * 255);
-  //stroke('white');
-  //ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
-  // This makes the "air" icon on bubble
-  //fill('white');
-  //ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
-  // This makes the rest of the bubbles.
-  //fill(71, 130, 158);
-  //noStroke();
-  //ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
- // });
- //}
+//bubbles.forEach(function(bubble) {
+//console.log(bubble)
+//bubble.offset = random(-.5, .5);
+//console.log("jitterPooooZ")
+//  This makes the main bubble
+//fill(71, 130, 158, 0.9 * 255);
+//stroke('white');
+//ellipse(bubble.x - bubble.offset, bubble.y - bubble.offset, bubble.diameter, bubble.diameter);
+// This makes the "air" icon on bubble
+//fill('white');
+//ellipse(bubble.x + (bubble.diameter * 0.2) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.25), bubble.diameter / 8, bubble.diameter / 8);
+// This makes the rest of the bubbles.
+//fill(71, 130, 158);
+//noStroke();
+//ellipse(bubble.x + (bubble.diameter * 0.15) - bubble.offset, bubble.y - bubble.offset - (bubble.diameter * 0.2), bubble.diameter / 8, bubble.diameter / 8);
+// });
+//}
 
 // This displays the secret message on the screen. Since the message will always in the middle of the
 // page, I made the position half the width and height of the defined canvas. 
