@@ -31,7 +31,7 @@ function preload() {
 function setup() {
   createCanvas(1200, 700); // This sets the canvas size to 1200 in width and 700 in height. 
   background(230); // This makes the background gray.
-  bubbleSetup();
+  bubbleSetup(); // This sets up the bubbles for the bubbles page. 
 }
 
 function draw() {
@@ -47,7 +47,7 @@ function draw() {
 
 // This function defines what the buttons on the different pages will do when the user clicks the button with his/her mouse. 
 function mouseClicked() {
-  // if user clicks right button on 1st page, takes to sad page
+  // if user clicks right button on 1st page, takes to sad page. If user clicks left button, takes to bubbles page.
   if (page === 0) {
     if (mouseX > butX + 250 && mouseX < butX + 470 && mouseY > butY && mouseY < butY + 50) {
       page = page + 1; //draw up the tryAgainPage
@@ -62,12 +62,14 @@ function mouseClicked() {
       bubbleSetup();
       page = page + 1;
     }
+  // If user is on bubbles page and clicks pay again button, return to start
   } else if (page === 2) {
     if (mouseX > playButX && mouseX < playButX + 450 && mouseY > playButY && mouseY < playButY + 70 > 0) {
       page = 2 - page;
     }
   }
 }
+
 /////////////////////////////// START OF FIRST PAGE CODE ///////////////////////////////
 
 // This function creates the entire first page. 
@@ -85,7 +87,7 @@ function message() {
   text("Do you want to pop some bubbles to see a message?", mesX, mesY);
 }
 
-// This makes the buttons
+// This makes the buttons.
 function buttons() {
   fill(74, 77, 81);
   noStroke();
@@ -98,6 +100,7 @@ function buttons() {
   text("Yes, definitely!", butX + 40, butY + 30);
   text("No, not feeling it", butX + 285, butY + 30);
 }
+
 /////////////////////////////// END OF FIRST PAGE CODE ///////////////////////////////
 
 /////////////////////////////// START OF TRY AGAIN PAGE CODE ///////////////////////////////
@@ -129,6 +132,7 @@ function tryAgainButton() {
   textAlign(LEFT);
   text("Alright, let's pop some bubbles!", bubButX + 85, bubButY + 40);
 }
+
 /////////////////////////////// END OF TRY AGAIN PAGE CODE ///////////////////////////////
 
 //////////////////////// START OF BUBBLE PAGE CODE /////////////////////////////
@@ -233,4 +237,5 @@ function playAgainButton() {
   textStyle(NORMAL);
   text("Click to play again!", playButX + 220, playButY + 40);
 }
+
 /////////////////////////////// END OF BUBBLE PAGE CODE ///////////////////////////////
